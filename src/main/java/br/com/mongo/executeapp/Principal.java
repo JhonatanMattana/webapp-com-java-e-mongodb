@@ -1,5 +1,8 @@
 package br.com.mongo.executeapp;
 
+import java.sql.Date;
+import java.util.Arrays;
+
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
@@ -16,6 +19,20 @@ public class Principal {
 		MongoCollection<Document> alunos = database.getCollection("alunos");
 		Document aluno = alunos.find().first();
 		System.out.println(aluno);
+		
+		Document novoAluno = new Document("nome", "João")
+			.append("data_nascimento", new Date(2002, 10, 12))
+			.append("curso", new Document("nome", "História"))
+			.append("notas", Arrays.asList(10,9,8))
+			.append("habilidades", Arrays.asList(new Document()
+					.append("nome", "Inglês")
+					.append("nível", "Básico"),
+					new Document()
+						.append("nome", "Espanhol")
+						.append("nível", "Básico")));
+		
+		alunos.insertOne(novoAluno);
+		client.close();
 	}
 
 }

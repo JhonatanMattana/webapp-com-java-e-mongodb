@@ -4,3 +4,12 @@ db.alunos.insertOne({ nome: "João", idade: 20, curso: "Sistemas de Informação
 
 db.alunos.find().pretty()
 
+## Remova um registro da collection alunos:
+db.alunos.deleteOne({ nome: "João" })
+
+## Remover todos os registros com .deleteMany():
+db.alunos.deleteMany({})
+
+## Para deletar a collection inteira:
+db.alunos.drop()
+
