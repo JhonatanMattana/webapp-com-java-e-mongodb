@@ -9,6 +9,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 public class Principal {
 
@@ -20,6 +21,19 @@ public class Principal {
 		Document aluno = alunos.find().first();
 		System.out.println(aluno);
 		
+//		Document novoAluno = criarNovoAluno();
+//		alunos.insertOne(novoAluno);
+
+		alunos.updateOne(Filters.eq("nome", "João"),
+			new Document("$set", new Document("nome", "João da Silva")));
+		
+		aluno = alunos.find().first();
+		System.out.println(aluno);
+		
+		client.close();
+	}
+
+	private static Document criarNovoAluno() {
 		Document novoAluno = new Document("nome", "João")
 			.append("data_nascimento", new Date(2002, 10, 12))
 			.append("curso", new Document("nome", "História"))
@@ -30,9 +44,7 @@ public class Principal {
 					new Document()
 						.append("nome", "Espanhol")
 						.append("nível", "Básico")));
-		
-		alunos.insertOne(novoAluno);
-		client.close();
+		return novoAluno;
 	}
 
 }
