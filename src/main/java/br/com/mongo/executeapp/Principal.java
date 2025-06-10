@@ -24,13 +24,19 @@ public class Principal {
 //		Document novoAluno = criarNovoAluno();
 //		alunos.insertOne(novoAluno);
 
-		alunos.updateOne(Filters.eq("nome", "João"),
-			new Document("$set", new Document("nome", "João da Silva")));
+//		atualizarAluno(alunos);
+		
+		alunos.deleteOne(Filters.eq("nome", "João da Silva"));
 		
 		aluno = alunos.find().first();
 		System.out.println(aluno);
 		
 		client.close();
+	}
+
+	private static void atualizarAluno(MongoCollection<Document> alunos) {
+		alunos.updateOne(Filters.eq("nome", "João"),
+			new Document("$set", new Document("nome", "João da Silva")));
 	}
 
 	private static Document criarNovoAluno() {
