@@ -3,4 +3,12 @@
   <groupId>br.com.mongo</groupId>
   <artifactId>webapp-com-java-e-mongodb</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+  	<dependencie>
+  		<groupId>org.mongodb</groupId>
+  		<artifactId>mongodb-driver</artifactId>
+  		<version>3.4.2</version>
+  	</dependencie>
+  </dependencies>
 </project>
