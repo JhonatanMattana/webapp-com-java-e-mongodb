@@ -1,0 +1,6 @@
+db.createCollection("alunos")
+
+db.alunos.insertOne({ nome: "João", idade: 20, curso: "Sistemas de Informação" })
+
+db.alunos.find().pretty()
+
