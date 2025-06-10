@@ -1,10 +1,11 @@
 package br.com.mongo.executeapp;
 
+import com.mongodb.MongoClient;
+
 public class Principal {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		MongoClient mongoClient = new MongoClient();
 	}
 
 }
