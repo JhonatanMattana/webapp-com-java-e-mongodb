@@ -26,12 +26,16 @@ public class Principal {
 
 //		atualizarAluno(alunos);
 		
-		alunos.deleteOne(Filters.eq("nome", "João da Silva"));
+//		deletarAluno(alunos);
 		
 		aluno = alunos.find().first();
 		System.out.println(aluno);
 		
 		client.close();
+	}
+
+	private static void deletarAluno(MongoCollection<Document> alunos) {
+		alunos.deleteOne(Filters.eq("nome", "João da Silva"));
 	}
 
 	private static void atualizarAluno(MongoCollection<Document> alunos) {
