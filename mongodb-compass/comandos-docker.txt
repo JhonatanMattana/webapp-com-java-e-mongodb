@@ -1,0 +1,2 @@
+docker exec -it host_mongo mongosh -u admin -p admin
+
