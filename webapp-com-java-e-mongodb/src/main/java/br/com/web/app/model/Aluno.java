@@ -15,6 +15,11 @@ public class Aluno {
 	private List<Nota> notas;
 	private List<Habilidade> habilidades;
 	
+	public Aluno criaId() {
+	  setId(new ObjectId());
+	  return this;
+	}
+	
 	public ObjectId getId() {
 		return id;
 	}
