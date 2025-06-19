@@ -1,5 +1,6 @@
 package br.com.web.app.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +62,8 @@ public class Aluno {
 	}
 	
 	public List<Habilidade> getHabilidades() {
+		if (habilidades == null)
+			habilidades = new ArrayList<>();
 		return habilidades;
 	}
 	
@@ -72,5 +75,12 @@ public class Aluno {
 	public String toString() {
 		return "[nome: "+nome+", dataNascimento: , "+dataNascimento+"]";
 	}
-	
+
+	public Aluno adicionar(Aluno aluno, Habilidade habilidade) {
+		List<Habilidade> habilidades = aluno.getHabilidades();
+		habilidades.add(habilidade);
+		aluno.setHabilidades(habilidades);
+		return aluno;
+	}
+
 }

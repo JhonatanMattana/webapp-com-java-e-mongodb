@@ -48,7 +48,13 @@ public class AlunoRepository {
 	public void salvar(Aluno aluno) {
 		criarConexaoMongoClientAluno();
 		MongoCollection<Aluno> alunos = database.getCollection("alunos", Aluno.class);
-		alunos.insertOne(aluno);
+		
+		if (aluno.getId() == null) {
+			alunos.insertOne(aluno);
+		} else {
+			alunos.updateOne(Filters.eq("_id", aluno.getId()), new Document("$set", aluno));
+		}
+		
 		this.clientAluno.close();
 	}
 	
