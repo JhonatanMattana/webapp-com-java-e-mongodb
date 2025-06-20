@@ -18,6 +18,7 @@ import org.bson.types.ObjectId;
 import br.com.web.app.model.Aluno;
 import br.com.web.app.model.Curso;
 import br.com.web.app.model.Habilidade;
+import br.com.web.app.model.Nota;
 
 public class AlunoCodec implements CollectibleCodec<Aluno> {
 
@@ -34,6 +35,7 @@ public class AlunoCodec implements CollectibleCodec<Aluno> {
 		Date dataNascimento = aluno.getDataNascimento();
 		Curso curso = aluno.getCurso();
 		List<Habilidade> habilidades = aluno.getHabilidades();
+		List<Nota> notas = aluno.getNotas();
 
 		Document documento = new Document();
 		documento.put("_id", id);
@@ -50,6 +52,14 @@ public class AlunoCodec implements CollectibleCodec<Aluno> {
 			
 			documento.put("habilidades", habilidadesDocument);
 		}
+		
+		if(notas != null) {
+		  List<Double> notasParaSalvar = new ArrayList<>();
+		  for (Nota nota : notas) {
+		    notasParaSalvar.add(nota.getValor()); 
+		  }
+		  documento.put("notas", notasParaSalvar);
+		} 
 		
 		codec.encode(writer, documento, encoder);
 	}
@@ -73,6 +83,25 @@ public class AlunoCodec implements CollectibleCodec<Aluno> {
 			String nomeCurso = curso.getString("nome");
 			aluno.setCurso(new Curso(nomeCurso));
 		}
+		
+		List<Double> notas = (List<Double>) document.get("notas");
+		if (notas != null) {
+		  List<Nota> notasDoAluno = new ArrayList<>();
+		  for (Double nota : notas) {
+		    notasDoAluno.add(new Nota(nota));
+		    aluno.setNotas(notasDoAluno);
+		  }
+		}
+
+		List<Document> habilidades = (List<Document>) document.get("habilidades");
+		if(habilidades != null) {
+		  List<Habilidade> habilidadesDoAluno = new ArrayList<>();
+		  for (Document documentHabilidade : habilidades) {
+		    habilidadesDoAluno.add(new Habilidade(documentHabilidade.getString("nome"), documentHabilidade.getString("nivel")));
+		  }
+		  aluno.setHabilidades(habilidadesDoAluno);
+		}
+		
 		return aluno;
 	}
 
