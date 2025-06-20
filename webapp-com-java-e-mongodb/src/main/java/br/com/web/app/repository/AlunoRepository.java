@@ -101,4 +101,21 @@ public class AlunoRepository {
 		this.clientAluno.close();
 	}
 
+	public List<Aluno> pesquisarPorClassificacaoENota(String classificacao, double nota) {
+		criarConexaoMongoClientAluno();
+		MongoCollection<Aluno> alunoCollection = this.database.getCollection("alunos", Aluno.class);
+		MongoCursor<Aluno> resultados = null;
+
+		if (classificacao.equals("reprovados")) {
+			resultados = alunoCollection.find(Filters.lt("notas", nota)).iterator();
+		} else if (classificacao.equals("aprovados")) {
+			resultados = alunoCollection.find(Filters.gte("notas", nota)).iterator();
+		}
+
+		List<Aluno> alunos = popularAlunos(resultados);
+
+		fecharConexao();
+		return alunos;
+	}
+
 }
